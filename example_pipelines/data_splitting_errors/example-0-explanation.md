@@ -41,7 +41,7 @@ The fixed correct pipeline is located [here](./example-0-fixed.py).
    - **example-0-fixed.py**: Preprocessing is done separately on training and test sets, preventing data leakage.
 
 3. **Train and Test Set Sizes**:
-    - **example-0.py** and **example-0-fixed.py**: The difference in testing data shape is due to the filtering steps that were not performed for the test set in the fixed file. This was done so that the test set is more reflective of the raw data for better generalizability. We also found that filtering the test dataset (uncomment filtering code block) in the [example-0-fixed.py](./example-0-fixed.py) file equalizes the train and test shapes in both files, but the classification accuracy in the example-0-fixed.py file is 0.802, supporting the presence of data leakage.
+    - **example-0.py** and **example-0-fixed.py**: The difference in testing data shape is due to the filtering steps that were not performed for the test set in the fixed file. This was done so that the test set is more reflective of the raw data for better generalizability. We also found that filtering the test dataset (uncomment filtering code block) in the [example-0-fixed.py](./example-0-fixed.py) file equalizes the train and test shapes in both files, but the classification accuracy in the example-0-fixed.py file is 0.802, supporting the presence of data leakage in the incorrrect example.
 
 3. **Model Evaluation**:
    - **example-0.py**: The model evaluation is not trustworthy (please see output comparison below) due to potential data leakage.
