@@ -84,8 +84,8 @@ The differences in the outputs between the incorrect and correct pipelines highl
    - **example-0-fixed.py**: The accuracy is slightly lower, but the precision and recall metrics are more balanced and realistic. This indicates a more reliable evaluation of the model's performance.
 
 2. **Generalization**:
-   - **example-0.py**: Due to data leakage, the model may not generalize well to unseen data, as the evaluation metrics are inflated.
-   - **example-0-fixed.py**: The model is more likely to generalize well to new data, as the evaluation reflects true performance without any leakage.
+   - **example-0.py**: Due to data leakage arising from the preparation steps on the full raw data, the model may not generalize well to unseen data, as the evaluation metrics are inflated.
+   - **example-0-fixed.py**: The model is more likely to generalize well to new data, as the testing data was unfiltered. The evaluation reflects performance possibly without any or with less leakage.
 
 3. **Class Imbalance**:
     - **example-0.py** and **example-0-fixed.py**: The classification reports of both pipelines indicate that the frequency of the class score_text = High is much less compared to the class score_text = Low in the raw dataset, and thus by extension in the training and testing datasets. This can be confirmed with a distribution check and indicates class imbalance.
