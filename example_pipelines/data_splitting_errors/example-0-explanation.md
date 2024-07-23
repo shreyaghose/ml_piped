@@ -24,7 +24,7 @@ The fixed correct pipeline is located [here](./example-0-fixed.py).
 5. **Data Splitting**: Both pipelines split the data into train and test sets at a ratio of 80:20
 6. **Train and Test Sizes**:
    - **example-0.py**: Shape of training data: (4937, 3); Shape of testing data: (1235, 3)
-   - **example-0-fixed.py**: Shape of training data: (5771, 53); Shape of testing data: (1443, 53)
+   - **example-0-fixed.py**: Shape of training data: (4937, 3); Shape of testing data: (1443, 3). 
 7. **Classifier Used**: Logistic Regression Classifier
 8. **Classification Accuracy**:
    - **example-0.py**: 0.8186
@@ -41,8 +41,7 @@ The fixed correct pipeline is located [here](./example-0-fixed.py).
    - **example-0-fixed.py**: Preprocessing is done separately on training and test sets, preventing data leakage.
 
 3. **Train and Test Set Sizes**:
-    - **example-0.py**: The smaller number of features (3) suggests that the incorrect preprocessing reduced the dataset's dimensionality, possibly losing important information.
-   - **example-0-fixed.py**: The larger number of features (53) shows that the fixed pipeline retained more information before splitting, leading to a more comprehensive feature set for training and testing.
+    - **example-0.py** and **example-0-fixed.py**: The difference in testing data shape is due to the filtering steps that were not performed for the test set in the fixed file. This was done so that the test set is more reflective of the raw data for better generalizability. We also found that filtering the test dataset (uncomment filtering code block) in the [example-0-fixed.py](./example-0-fixed.py) file equalizes the train and test shapes in both files, but the classification accuracy in the example-0-fixed.py file is 0.802, supporting the presence of data leakage.
 
 3. **Model Evaluation**:
    - **example-0.py**: The model evaluation is not trustworthy (please see output comparison below) due to potential data leakage.

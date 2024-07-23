@@ -23,11 +23,13 @@ raw_data = raw_data[
     ['sex', 'dob', 'age', 'c_charge_degree', 'race', 'score_text', 'priors_count', 'days_b_screening_arrest',
      'decile_score', 'is_recid', 'two_year_recid', 'c_jail_in', 'c_jail_out']]
 
-# Data Transformation
+# Data Filtering
 raw_data = raw_data[(raw_data['days_b_screening_arrest'] <= 30) & (raw_data['days_b_screening_arrest'] >= -30)]
 raw_data = raw_data[raw_data['is_recid'] != -1]
 raw_data = raw_data[raw_data['c_charge_degree'] != "O"]
 raw_data = raw_data[raw_data['score_text'] != 'N/A']
+
+# Data Replacement
 raw_data = raw_data.replace('Medium', "Low")
 
 # Data Preparation Pipeline (Imputation, Encoding, Discretization). Note: Applied to unsplit, raw data
@@ -58,9 +60,7 @@ train_labels = label_binarize(train_labels, classes=['High', 'Low'])
 test_labels = label_binarize(test_labels, classes=['High', 'Low'])
 
 # Model Evaluation
-pipeline = Pipeline([
-    ('classifier', LogisticRegression())
-])
+pipeline = Pipeline([('classifier', LogisticRegression())])
 
 pipeline.fit(train_data, train_labels.ravel())
 print("Accuracy", pipeline.score(test_data, test_labels.ravel()))

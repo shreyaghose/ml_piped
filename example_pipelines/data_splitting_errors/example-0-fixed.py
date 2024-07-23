@@ -19,8 +19,6 @@ raw_data = pd.read_csv(raw_data_file)
 
 # Data Splitting before Data Preparation
 train_data, test_data = train_test_split(raw_data, test_size=0.2, random_state=42)
-print("Shape of training data:", train_data.shape)
-print("Shape of testing data:", test_data.shape)
 
 # Data Extraction
 train_data = train_data[
@@ -31,13 +29,19 @@ test_data = test_data[
     ['sex', 'dob', 'age', 'c_charge_degree', 'race', 'score_text', 'priors_count', 'days_b_screening_arrest',
      'decile_score', 'is_recid', 'two_year_recid', 'c_jail_in', 'c_jail_out']]
 
-# Data Filtering
+# Data Filtering. Note: This is only performed for the train set
 train_data = train_data[(train_data['days_b_screening_arrest'] <= 30) & (train_data['days_b_screening_arrest'] >= -30)]
 train_data = train_data[train_data['is_recid'] != -1]
 train_data = train_data[train_data['c_charge_degree'] != "O"]
 train_data = train_data[train_data['score_text'] != 'N/A']
 
+# Uncomment to test for accuracy after filtering test set
+# test_data = test_data[(test_data['days_b_screening_arrest'] <= 30) & (test_data['days_b_screening_arrest'] >= -30)]
+# test_data = test_data[test_data['is_recid'] != -1]
+# test_data = test_data[test_data['c_charge_degree'] != "O"]
+# test_data = test_data[test_data['score_text'] != 'N/A']
 
+# Data Replacement
 train_data = train_data.replace('Medium', "Low")
 test_data = test_data.replace('Medium', "Low")
 
@@ -51,15 +55,19 @@ impute1_and_onehot = Pipeline([('imputer1', SimpleImputer(strategy='most_frequen
 impute2_and_bin = Pipeline([('imputer2', SimpleImputer(strategy='mean')),
                             ('discretizer', KBinsDiscretizer(n_bins=4, encode='ordinal', strategy='uniform'))])
 
+# Note that the featurizer 
 featurizer = ColumnTransformer(transformers=[
     ('impute1_and_onehot', impute1_and_onehot, ['is_recid']),
     ('impute2_and_bin', impute2_and_bin, ['age'])
 ])
 
-pipeline = Pipeline([
-    ('features', featurizer),
-    ('classifier', LogisticRegression())
-])
+train_data = featurizer.fit_transform(train_data)
+test_data = featurizer.fit_transform(test_data)
+
+print("Shape of training data:", train_data.shape)
+print("Shape of testing data:", test_data.shape)
+
+pipeline = Pipeline([('classifier', LogisticRegression())])
 
 # Model Evaluation
 pipeline.fit(train_data, train_labels.ravel())
