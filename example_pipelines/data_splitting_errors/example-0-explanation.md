@@ -45,7 +45,7 @@ The fixed correct pipeline is located [here](./example-0-fixed.py).
 
 3. **Model Evaluation**:
    - **example-0.py**: The model evaluation is not trustworthy (please see output comparison below) due to potential data leakage.
-   - **example-0-fixed.py**: The model evaluation is reliable and reflects the true performance. 
+   - **example-0-fixed.py**: The model accuracy drops, indicating that the model evaluation in example-0.py is inflated. 
    
 ## Comparison of Outputs
 
@@ -56,8 +56,8 @@ The model shows high accuracy primarily due to excellent performance on class 1 
 
 |                | precision | recall | f1-score | support |
 |----------------|-----------|--------|----------|---------|
-| 0              | 0.00      | 0.00   | 0.00     | 224     |
-| 1              | 0.82      | 1.00   | 0.90     | 1011    |
+| 0 (score_text = High)| 0.00| 0.00   | 0.00     | 224     |
+| 1 (score_text = Low)| 0.82 | 1.00   | 0.90     | 1011    |
 | **accuracy**   |           |        | 0.82     | 1235    |
 | **macro avg**  | 0.41      | 0.50   | 0.45     | 1235    |
 | **weighted avg** | 0.67   | 0.82   | 0.74     | 1235    |
@@ -68,8 +68,8 @@ The model performs well on class 1 (score_text = Low) with high precision and re
 
 |                | precision | recall | f1-score | support |
 |----------------|-----------|--------|----------|---------|
-| 0              | 0.00      | 0.00   | 0.00     | 293     |
-| 1              | 0.80      | 1.00   | 0.89     | 1150    |
+| 0 (score_text = High)| 0.00      | 0.00   | 0.00     | 293     |
+| 1 (score_text = Low)| 0.80      | 1.00   | 0.89     | 1150    |
 | **accuracy**   |           |        | 0.80     | 1443    |
 | **macro avg**  | 0.40      | 0.50   | 0.44     | 1443    |
 | **weighted avg** | 0.64   | 0.80   | 0.71     | 1443    |
