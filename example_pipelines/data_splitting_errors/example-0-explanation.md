@@ -10,7 +10,7 @@ The data splitting error occurs when the data is split into training and test se
 
 ### Incorrect Pipeline (example-0.py)
 
-An example incorrect pipeline is located[here](./example-0.py).
+An example incorrect pipeline is located [here](./example-0.py).
 
 ### Correct Pipeline (example-0-fixed.py)
 
@@ -50,10 +50,10 @@ The fixed correct pipeline is located [here](./example-0-fixed.py).
    
 ## Comparison of Outputs
 
-When running the pipelines with consistent randomization and preparation steps, the outputs can be compared. The pipelines were both randomized with `random_seed = 42'.
+When running the pipelines with consistent randomization and preparation steps, the outputs can be compared. The pipelines were both randomized with 'random_seed = 42'.
 
 ### Classification Report for example-0.py:
-The model shows high accuracy primarily due to excellent performance on class 1, but it completely fails to identify instances of class 0, indicating possible class imbalance issues and potential data leakage.
+The model shows high accuracy primarily due to excellent performance on class 1 (score_text = Low), but it completely fails to identify instances of class 0 (score_text = High), indicating possible class imbalance issues and potential data leakage.
 
 |                | precision | recall | f1-score | support |
 |----------------|-----------|--------|----------|---------|
@@ -65,7 +65,7 @@ The model shows high accuracy primarily due to excellent performance on class 1,
 
 
 ### Classification Report for example-0-fixed.py :
-The model performs well on class 1 with high precision and recall but struggles with class 0, which may suggest an inherent difficulty in predicting this class but without the data leakage seen in the incorrect pipeline.
+The model performs well on class 1 (score_text = Low) with high precision and recall but struggles with class 0 (score_text = High), which may suggest an inherent difficulty in predicting this class but without the data leakage seen in the incorrect pipeline (see 'Class Imbalance' below). 
 
 |                | precision | recall | f1-score | support |
 |----------------|-----------|--------|----------|---------|
@@ -89,7 +89,7 @@ The differences in the outputs between the incorrect and correct pipelines highl
    - **example-0-fixed.py**: The model is more likely to generalize well to new data, as the evaluation reflects true performance without any leakage.
 
 3. **Class Imbalance**:
-    - **example-0.py** and **example-0-fixed.py**: The classification reports of both pipelines indicate that the frequency of the class score_text = High is much less compared to the class score_text = Low. This can be confirmed with a distribution check and indicates class imbalance.
+    - **example-0.py** and **example-0-fixed.py**: The classification reports of both pipelines indicate that the frequency of the class score_text = High is much less compared to the class score_text = Low in the raw dataset, and thus by extension in the training and testing datasets. This can be confirmed with a distribution check and indicates class imbalance.
 
 ## Practical Advice
 
