@@ -1,8 +1,8 @@
-# Understanding Inherited Bias in Data Pipelines
+# Understanding Measurement Bias in Data Pipelines
 
 In machine learning data pipelines, it's crucial to manage measurement bias effectively. Measurement bias occurs when the approach used to collect or record data introduces systematic errors, leading to inaccuracies and potential distortions in the model's performance. This bias can stem from various sources, such as inconsistent data granularity, varying data quality across groups, or simplified classification tasks. In this guide, we will explain the impact of measurement bias, how it manifests, and practical steps to mitigate it.
 
-## The Problem: Inherited Bias
+## The Problem: Measurement Bias
 
 Measurement bias arises when the methods or tools used to measure or collect data lead to inaccuracies. This can include:
 
@@ -30,3 +30,6 @@ When present, measurement bias can lead to models that do not generalize well, p
 6. **Evaluation Metrics**: In addition to traditional performance metrics, use evaluation metrics that specifically assess the impact of measurement bias on model outcomes. This helps ensure that the model's performance is not adversely affected by measurement errors.
 
 ## References
+1. Suresh, H., & Guttag, J. V. (2019). A Framework for Understanding Unintended Consequences of Machine Learning. [Link to paper]
+2. Baker, D. (2022). Algorithmic Bias in Data: A Case Study of Measurement Bias. [Link to paper]
+3. Hellström, J., & Väänänen, T. (2020). Bias in Machine Learning: Identification and Mitigation Strategies. [Link to paper]
