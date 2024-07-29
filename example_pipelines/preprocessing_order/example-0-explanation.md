@@ -1,8 +1,8 @@
-# Understanding Representational Bias in Data Pipelines
+# Understanding Preprocessing Order Errors in Data Pipelines
 
 In machine learning data pipelines, the order in which preprocessing steps are applied can significantly impact model performance. Proper sequencing of preprocessing tasks is crucial to avoid issues such as data leakage, ineffective feature selection, and suboptimal model training. This guide will explain the impact of the order of preprocessing, how improper sequencing can affect your model, and practical steps to ensure correct preprocessing order.
 
-## The Problem: Representational Bias
+## The Problem: Preprocessing Order Errors
 
 The order in which preprocessing steps are applied can influence the quality and effectiveness of the model. Key issues related to the order of preprocessing include:
 
