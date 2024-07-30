@@ -20,21 +20,6 @@ raw_data_file = os.path.join(project_root, "datasets", "alcohol", "Maths.csv")
 raw_data = pd.read_csv(raw_data_file)
 
 # Known dataset with high-correlation between G1, G2 and G3 features
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-from utils import get_project_root
-
-# Getting the project root
-project_root = get_project_root()
-
-# Getting the raw data file
-raw_data_file = os.path.join(project_root, "datasets", "alcohol", "Maths.csv")
-raw_data = pd.read_csv(raw_data_file)
-
-# Known dataset with high-correlation between G1, G2 and G3 features
 X = raw_data.drop(columns=['G3'])
 y = raw_data['G3']
 
