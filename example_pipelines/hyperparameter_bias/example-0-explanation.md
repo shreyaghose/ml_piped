@@ -1,13 +1,13 @@
 # Understanding Hyperparameter Bias in Data Pipelines
-
 Hyper-parameter bias arises when the choice of hyper-parameters in a machine learning model introduces bias, potentially leading to suboptimal performance. Many deep learning models, such as neural networks, have numerous parameters that are not learned during training but require developer input. The final sequence of hyper-parameter choices can significantly impact the model, introducing bias if not selected properly.
 
 ## The Problem: Hyperparameter Bias
-
 Hyper-parameter bias can be introduced in several ways:
 
 1. **Arbitrary Selection**: Choosing hyper-parameters based on intuition or trial and error without systematic optimization can lead to suboptimal models.
+
 2. **Overfitting**: Poor hyper-parameter choices can cause models to overfit the training data, reducing generalization to new data.
+
 3. **Underfitting**: Conversely, some hyper-parameter settings may prevent the model from capturing the underlying data patterns, leading to underfitting.
 
 ## Practical Advice

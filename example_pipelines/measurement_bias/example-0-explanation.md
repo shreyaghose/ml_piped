@@ -1,17 +1,17 @@
 # Understanding Measurement Bias in Data Pipelines
-
 In machine learning data pipelines, it's crucial to manage measurement bias effectively. Measurement bias occurs when the approach used to collect or record data introduces systematic errors, leading to inaccuracies and potential distortions in the model's performance. This bias can stem from various sources, such as inconsistent data granularity, varying data quality across groups, or simplified classification tasks. In this guide, we will explain the impact of measurement bias, how it manifests, and practical steps to mitigate it.
 
 ## The Problem: Measurement Bias
-
 Measurement bias arises when the methods or tools used to measure or collect data lead to inaccuracies. This can include:
-
 1. **Different Data Granularities**: Variations in the level of detail or scale of data across different groups.
+
 2. **Diverse Data Quality**: Inconsistencies in data quality or accuracy between different groups or sources.
+
 3. **Oversimplified Classification Tasks**: Using overly simplified criteria that do not capture the full complexity of the data.
 
 Measurement bias can manifest due to two notable forms:
 1. **Observer Bias**: Systemic differences between the true and reported values due to observer variation or technical issues.
+
 2. **Investigator Bias**: Bias introduced by the researcher's expectations or preferences affecting the data collection or interpretation.
 When present, measurement bias can lead to models that do not generalize well, provide skewed results, or fail to accurately reflect the real-world scenario they aim to model.
 
@@ -30,6 +30,6 @@ When present, measurement bias can lead to models that do not generalize well, p
 6. **Evaluation Metrics**: In addition to traditional performance metrics, use evaluation metrics that specifically assess the impact of measurement bias on model outcomes. This helps ensure that the model's performance is not adversely affected by measurement errors.
 
 ## References
-1. Suresh, H., & Guttag, J. V. (2019). A Framework for Understanding Unintended Consequences of Machine Learning. [Link to paper]
-2. Baker, D. (2022). Algorithmic Bias in Data: A Case Study of Measurement Bias. [Link to paper]
-3. Hellström, J., & Väänänen, T. (2020). Bias in Machine Learning: Identification and Mitigation Strategies. [Link to paper]
+1. Suresh, H. and Guttag, J.V., 2019. A framework for understanding unintended consequences of machine learning. arXiv preprint arXiv:1901.10002, 2(8), p.73.
+2. Baker, R.S. and Hawn, A., 2022. Algorithmic bias in education. International Journal of Artificial Intelligence in Education, pp.1-41.
+3. Hellström, T., Dignum, V. and Bensch, S., 2020. Bias in Machine Learning--What is it Good for?. arXiv preprint arXiv:2004.00686.

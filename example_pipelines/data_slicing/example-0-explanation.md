@@ -1,9 +1,7 @@
 # Understanding Data Slicing Errors in Data Pipelines
-
 When constructing data pipelines for machine learning models, it is essential to handle data slicing properly to ensure fair and accurate evaluations. Slicing the data incorrectly can lead to biased evaluations and overlooked performance issues across different subsets of the data. In this guide, we will explain the common pitfalls related to data slicing errors and provide practical insights to avoid them.
 
 ## The Problem: Data Slicing Errors
-
 Data slicing errors occur when the performance of a model is not uniformly evaluated across different subsets or slices of the data. These slices can be defined by various features such as demographics, geographic regions, or any other relevant subgroups. Ignoring these slices can lead to models that perform well on average but poorly for specific subgroups, resulting in biased and unfair outcomes.
 
 ## Practical Advice
@@ -19,3 +17,6 @@ Data slicing errors occur when the performance of a model is not uniformly evalu
 5. **Transparent Reporting Should Be Conducted**: Performance metrics for all slices should be documented and reported transparently. This ensures accountability and provides a clear understanding of how the model performs across different subgroups.
 
 ## References
+1. Chung, Y., Kraska, T., Polyzotis, N., Tae, K.H. and Whang, S.E., 2019. Automated data slicing for model validation: A big data-ai integration approach. IEEE Transactions on Knowledge and Data Engineering, 32(12), pp.2284-2296.
+2. Chung, Y., Kraska, T., Polyzotis, N., Tae, K.H. and Whang, S.E., 2019, April. Slice finder: Automated data slicing for model validation. In 2019 IEEE 35th International Conference on Data Engineering (ICDE) (pp. 1550-1553). IEEE.
+3. Chung, Y., Kraska, T., Polyzotis, N., Tae, K.H. and Whang, S.E., 2019, April. Slice finder: Automated data slicing for model validation. In 2019 IEEE 35th International Conference on Data Engineering (ICDE) (pp. 1550-1553). IEEE.

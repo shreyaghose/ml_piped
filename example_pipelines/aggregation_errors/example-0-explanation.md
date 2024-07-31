@@ -1,9 +1,7 @@
-# Understanding Aggregation Bias in Data Pipelines
-
+# Understanding Aggregation Error in Data Pipelines
 In machine learning data pipelines, aggregation errors occur when data is grouped or transformed in a way that introduces inaccuracies or misrepresents the underlying data distribution. Aggregation errors can arise from various data transformations, such as text normalization, temporal or spatial zooming, and other granularity changes. These errors can lead to skewed datasets, loss of information, and incorrect model predictions. This guide will explain the impact of aggregation errors, how they manifest, and practical steps to mitigate them.
 
-## The Problem: Aggregation Bias
-
+## The Problem: Aggregation Errors
 Aggregation errors can manifest in several ways. The following are some examples:
 
 1. **Text Normalization**: Techniques such as lowercasing, stemming, or lemmatization can alter the distribution of text data, potentially grouping unrelated observations and introducing bias.
@@ -28,3 +26,5 @@ Aggregation errors can manifest in several ways. The following are some examples
 
 ## References
 1. Stoyanovich, J., Howe, B. and Jagadish, H.V., 2020. Responsible data management. Proceedings of the VLDB Endowment, 13(12).
+2. Bonawitz, K., Ivanov, V., Kreuter, B., Marcedone, A., McMahan, H.B., Patel, S., Ramage, D., Segal, A. and Seth, K., 2017, October. Practical secure aggregation for privacy-preserving machine learning. In proceedings of the 2017 ACM SIGSAC Conference on Computer and Communications Security (pp. 1175-1191).
+3. Gudivada, V., Apon, A. and Ding, J., 2017. Data quality considerations for big data and machine learning: Going beyond data cleaning and transformations. International Journal on Advances in Software, 10(1), pp.1-20.

@@ -1,9 +1,7 @@
 # Understanding Inductive Bias in Data Pipelines
-
 When constructing data pipelines for machine learning models, it is crucial to address induction bias. Induction bias, or learning bias, occurs when the learning algorithm makes assumptions about the hypothesis space that can lead to either overfitting or underfitting the model. This bias arises from the inductive learning process, where the model generalizes from specific examples. In this guide, we will explain the impact of induction bias, how it occurs, and practical steps to mitigate it.
 
 ## The Problem: Inductive Bias
-
 Induction bias occurs when the assumptions made by a learning algorithm cause the model to either fit the training data too closely (overfitting) or fail to capture the underlying pattern (underfitting). Overfitting happens when the model is too complex, capturing noise in the training data as if it were a true pattern. Underfitting, on the other hand, occurs when the model is too simple and cannot capture the complexity of the data. Both overfitting and underfitting result in poor generalization to new, unseen data.
 
 ## Practical Advice
@@ -17,4 +15,6 @@ Induction bias occurs when the assumptions made by a learning algorithm cause th
 4. **Model Complexity**: An appropriate model complexity shoild be chosen based on the size and complexity of the dataset. Simpler models are less likely to overfit small datasets, while more complex models can capture the nuances of larger datasets.
 
 5. **Data Augmentation**: Increasing the size and diversity of the training data through data augmentation techniques helps the model generalize better by learning from a broader range of examples.
+
 ## References
+1. Hellström, T., Dignum, V. and Bensch, S., 2020. Bias in Machine Learning--What is it Good for?. arXiv preprint arXiv:2004.00686.
