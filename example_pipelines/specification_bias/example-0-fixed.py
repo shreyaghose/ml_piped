@@ -23,13 +23,26 @@ raw_data_file = os.path.join(project_root, "datasets", "adult_data", "adult_data
 data = pd.read_csv(raw_data_file)
 
 # Identify potential proxy attributes (modify this method as needed)
-def identify_proxy_attributes(df, protected_attributes):
+def identify_proxy_attributes(df, protected_attributes, correlation_threshold=0.8):
     proxy_attributes = set()
     
-    # Placeholder for proxy attributes identification logic
-    # Since correlation doesn't work with categorical data, use domain knowledge or other methods.
+    # One-hot encode categorical variables for correlation calculation
+    df_encoded = pd.get_dummies(df, drop_first=True)
     
-    # Example: For simplicity, we will skip proxy identification in this example
+    # Calculate correlation matrix
+    corr_matrix = df_encoded.corr().abs()
+    
+    # Identify proxy attributes by checking high correlation with protected attributes
+    for protected_attribute in protected_attributes:
+        if protected_attribute in df.columns:
+            encoded_columns = [col for col in df_encoded.columns if col.startswith(protected_attribute)]
+            for encoded_col in encoded_columns:
+                high_corr_attributes = corr_matrix[encoded_col][corr_matrix[encoded_col] > correlation_threshold].index.tolist()
+                proxy_attributes.update(high_corr_attributes)
+    
+    # Remove any encoded columns for protected attributes themselves
+    proxy_attributes = {col for col in proxy_attributes if not any(col.startswith(protected_attr) for protected_attr in protected_attributes)}
+    
     return list(proxy_attributes)
 
 # List of protected attributes
@@ -39,7 +52,7 @@ protected_attributes = ['race', 'gender']
 # Splitting before processing to ensure transformations are applied separately
 X_train, X_test, y_train, y_test = train_test_split(data.drop('salary', axis=1), data['salary'], test_size=0.2, random_state=42)
 
-# Identify proxy attributes after the split (currently an empty list)
+# Identify proxy attributes after the split
 proxy_attributes = identify_proxy_attributes(X_train, protected_attributes)
 
 # Remove proxy attributes from the feature set
