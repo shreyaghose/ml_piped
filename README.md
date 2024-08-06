@@ -1,4 +1,4 @@
-# PIPED - Practical Issues and Pipeline Examples Dataset
+# ML PIPED - Practical Issues in Pipelines -  Example Dataset
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 
@@ -39,19 +39,17 @@ Use Case: Explores issues related to correlation vs. causation, confounding vari
 
 
 ## Issues Covered
-The repository includes examples of the following issues, among others:
-Aggregation Errors
-Data Imputation Challenges
-Data Leakage
-Inconsistent Data Types
-Missing Data Handling
-Outlier Management
+The repository includes examples of the issues that can be found during the data preparation stage in a machine learning pipeline. The selection of the issues detailed in the provided categorization framework is a result of a comprehensive literature review encompassing over 35 identified problems and biases, in different stages of the pipeline. Each issue was chosen based on its prevalence in the research, its influence on fairness, interpretability, and reproducibility, and its relevance across different pipeline phases, from input datasets through to model training and evaluation. Some of these issues are:
+1. [Data Leakage](example_pipelines\data_leakage)
+2. [Shortcut Learning](example_pipelines\shortcut_learning)
+3. [Anonymization Errors](example_pipelines\data_anonymization)
 
 
 ## How to Use This Repository
-Explore the Issues: Browse through the issues to understand common data preparation problems.
-Review the Examples: Examine the flawed and corrected pipelines to see how these issues can occur and be resolved.
-Read the Documentation: Each issue includes a markdown file with detailed explanations and advice.
+1. Exploring the Issues: Browsing through the issues will help understand common data preparation problems.
+2. Reviewing the Examples: Examining the flawed and corrected pipelines provides insights on how these issues can occur and be resolved.
+3. Reading the Documentation: Each issue includes a markdown file with detailed explanations and advice.
+4. Repeating Experimentation: The experimentation can be tailored and fit to any dataset and repeated.
 
 ## License
-This project is licensed under the Apache License 2.0. See the [LICENSE] (LICENSE.txt) file for details.
+This project is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file for details.
