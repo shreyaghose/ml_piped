@@ -40,9 +40,9 @@ Use Case: Explores issues related to correlation vs. causation, confounding vari
 
 ## Issues Covered
 The repository includes examples of the issues that can be found during the data preparation stage in a machine learning pipeline. The selection of the issues detailed in the provided categorization framework is a result of a comprehensive literature review encompassing over 35 identified problems and biases, in different stages of the pipeline. Each issue was chosen based on its prevalence in the research, its influence on fairness, interpretability, and reproducibility, and its relevance across different pipeline phases, from input datasets through to model training and evaluation. Some example issues are:
-1. [Data Leakage](example_pipelines\data_leakage)
-2. [Shortcut Learning](example_pipelines\shortcut_learning)
-3. [Anonymization Errors](example_pipelines\data_anonymization)
+1. [Data Leakage](example_pipelines/data_leakage)
+2. [Shortcut Learning](example_pipelines/shortcut_learning)
+3. [Anonymization Errors](example_pipelines/data_anonymization)
 
 
 ## How to Use This Repository
