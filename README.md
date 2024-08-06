@@ -5,7 +5,7 @@
 Welcome to ML PIPED, a collection of example pipelines demonstrating various data preparation issues and their solutions. This repository is designed to help data practitioners identify common pitfalls in data processing and learn how to address them effectively.
 
 ## Overview
-Data preparation is a critical step in any data-driven project. Mistakes in this phase can lead to misleading results, faulty analyses, and ultimately, incorrect decisions. This repository provides practical examples of 23 common data preparation issues, along with flawed and corrected pipeline implementations for each issue.
+Data preparation is a critical step in any data-driven project. Mistakes in this phase can lead to misleading results, faulty analyses, and ultimately, incorrect decisions. This repository provides practical examples of 21 common data preparation issues, along with flawed and corrected pipeline implementations for each issue.
 
 ## Structure
 Each issue is organized in a dedicated folder containing:
