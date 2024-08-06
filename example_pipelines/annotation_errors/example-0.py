@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 from sklearn.preprocessing import LabelEncoder
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -23,22 +23,22 @@ data = pd.read_csv(raw_data_file)
 X = data.drop(['Survived', 'Name', 'Ticket', 'Cabin', 'PassengerId'], axis=1)
 y = data['Survived']
 
-# Encode categorical features (without proper handling of missing values or biases)
+# Encoding categorical features (without proper handling of missing values or biases)
 X = pd.get_dummies(X, columns=['Sex', 'Embarked'])
 X['Age'] = X['Age'].fillna(X['Age'].mean())  # Simple imputation
 
-# Encode labels
+# Encoding labels
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y)
 
-# Split data
+# Splitting data
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
-# Train model
+# Training model
 clf = RandomForestClassifier(random_state=42)
 clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 
-# Evaluate model
+# Evaluating model
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("Classification report:", classification_report(y_test, y_pred))

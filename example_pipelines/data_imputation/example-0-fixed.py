@@ -10,6 +10,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.metrics import accuracy_score, classification_report
 
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -26,21 +27,21 @@ raw_data = pd.read_csv(raw_data_file)
 X = raw_data.drop('score_text', axis=1)
 y = raw_data['score_text']
 
-# Split data
+# Splitting data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Identify numeric and categorical columns
+# Identifying numeric and categorical columns
 numeric_features = X.select_dtypes(include=['int64', 'float64']).columns
 categorical_features = X.select_dtypes(include=['object']).columns
 
-# Create a column transformer with iterative imputer for numeric features and one hot encoder for categorical features
+# Creating a column transformer with iterative imputer for numeric features and one hot encoder for categorical features
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', IterativeImputer(random_state=42), numeric_features),
         ('cat', OneHotEncoder(handle_unknown='ignore'), categorical_features)
     ])
 
-# Define pipeline with preprocessing and classifier
+# Defining pipeline with preprocessing and classifier
 pipeline = Pipeline([
     ('preprocessing', preprocessor),
     ('classifier', RandomForestClassifier(random_state=42))
@@ -51,7 +52,7 @@ scores = cross_val_score(pipeline, X_train, y_train, cv=5, scoring='accuracy')
 
 print("Cross-validation scores:", scores)
 
-# Fit on the full training data and evaluate on the test data
+# Fitting on the full training data and evaluate on the test data
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)
 

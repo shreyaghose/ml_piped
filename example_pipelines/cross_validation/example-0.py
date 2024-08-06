@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier
 from imblearn.under_sampling import RandomUnderSampler
 import pandas as pd
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -20,7 +20,7 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "diabetes_indicator", "5050_split.csv")
 data = pd.read_csv(raw_data_file)
 
-# Down-sample the data before cross-validation
+# Down-sampling the data before cross-validation
 rus = RandomUnderSampler(random_state=42)
 X_resampled, y_resampled = rus.fit_resample(data.drop('Diabetes_binary', axis=1), data['Diabetes_binary'])
 

@@ -8,7 +8,7 @@ from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.utils import resample
 from sklearn.kernel_ridge import KernelRidge
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -22,37 +22,37 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "titanic", "data.csv")
 data = pd.read_csv(raw_data_file)
 
-# Drop irrelevant columns
+# Dropping irrelevant columns
 data = data.drop(['Name', 'Cabin', 'Ticket'], axis=1)
 
-# Artificially create a covariate shift by sampling classes unequally
+# Artificially creating a covariate shift by sampling classes unequally
 df_class_0 = data[data['Survived'] == 0].sample(frac=0.6, random_state=42)
 df_class_1 = data[data['Survived'] == 1]
 
 df_shifted = pd.concat([df_class_0, df_class_1])
 
-# Handle missing values
+# Handling missing values
 df_shifted['Age'] = df_shifted['Age'].fillna(df_shifted['Age'].median())
 df_shifted['Embarked'] = df_shifted['Embarked'].fillna(df_shifted['Embarked'].mode()[0])
 df_shifted['Fare'] = df_shifted['Age'].fillna(df_shifted['Fare'].median())
 
-# Encode categorical variables
+# Encoding categorical variables
 le = LabelEncoder()
 df_shifted['Sex'] = le.fit_transform(df_shifted['Sex'])
 df_shifted['Embarked'] = le.fit_transform(df_shifted['Embarked'])
 
-# Split the dataset into train and test sets
+# Splitting the dataset into train and test sets
 X = df_shifted.drop(['Survived'], axis=1)
 y = df_shifted['Survived']
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Apply scaling to handle potential differences in feature distributions
+# Applying scaling to handle potential differences in feature distributions
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
-# Check for distribution shift using a simple model
+# Checking for distribution shift using a simple model
 clf_shift_detection = KernelRidge(kernel='rbf')
 clf_shift_detection.fit(X_train_scaled, y_train)
 train_preds = clf_shift_detection.predict(X_train_scaled)
@@ -65,8 +65,7 @@ test_pred_mean = test_preds.mean()
 if abs(train_pred_mean - test_pred_mean) > 0.1:  # threshold for detecting shift
     print("Covariate shift detected, applying reweighting techniques")
     
-    # Apply reweighting technique to mitigate the shift
-    # Example: Reweighting using importance sampling
+    # Applying reweighting technique to mitigate the shift. Reweighting using importance sampling
     X_combined = pd.concat([X_train, X_test])
     y_combined = pd.concat([y_train, y_test])
     
@@ -75,10 +74,10 @@ if abs(train_pred_mean - test_pred_mean) > 0.1:  # threshold for detecting shift
 else:
     X_train_resampled, y_train_resampled = X_train, y_train
 
-# Train a simple classifier with resampled data
+# Training a simple classifier with resampled data
 clf = RandomForestClassifier(random_state=42)
 clf.fit(X_train_resampled, y_train_resampled)
 
-# Predict and evaluate
+# Prediction and evaluation
 y_pred = clf.predict(X_test_scaled)
 print(f"Accuracy: {accuracy_score(y_test, y_pred)}")

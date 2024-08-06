@@ -10,7 +10,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score, classification_report
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -27,11 +27,11 @@ data = pd.read_csv(raw_data_file)
 X = data.drop(['Survived', 'Name', 'Ticket', 'Cabin', 'PassengerId'], axis=1)
 y = data['Survived']
 
-# Define categorical and numerical features
+# Defining categorical and numerical features
 categorical_features = ['Sex', 'Embarked']
 numerical_features = ['Age', 'SibSp', 'Parch', 'Fare']
 
-# Define preprocessing for numerical and categorical data
+# Defining preprocessing for numerical and categorical data
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', SimpleImputer(strategy='mean'), numerical_features),
@@ -41,7 +41,7 @@ preprocessor = ColumnTransformer(
         ]), categorical_features)
     ])
 
-# Define the pipeline with preprocessing and model
+# Defining the pipeline with preprocessing and model
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('classifier', RandomForestClassifier(random_state=42))
@@ -54,7 +54,7 @@ cv_scores = cross_val_score(pipeline, X, y, cv=strat_kfold, scoring='accuracy')
 print("Cross-validation accuracy scores:", cv_scores)
 print("Mean cross-validation accuracy:", np.mean(cv_scores))
 
-# Fit the model on the full training data and evaluate on the test data
+# Fitting the model on the full training data and evaluating on the test data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 pipeline.fit(X_train, y_train)
 y_pred = pipeline.predict(X_test)

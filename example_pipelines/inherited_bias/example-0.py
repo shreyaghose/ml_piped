@@ -8,7 +8,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -43,12 +43,12 @@ model_pipeline = Pipeline(steps=[
     ('classifier', LogisticRegression(max_iter=1000))
 ])
 
-# Split the data into training and test sets
+# Splitting the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model with preprocessing
+# Training the model with preprocessing
 model_pipeline.fit(X_train, y_train)
 
-# Evaluate the model
+# Evaluating the model
 y_pred = model_pipeline.predict(X_test)
 print(classification_report(y_test, y_pred, zero_division=0))

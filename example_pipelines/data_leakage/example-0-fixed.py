@@ -9,7 +9,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -23,25 +23,25 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "adult_data", "adult_data.csv")
 data = pd.read_csv(raw_data_file)
 
-# Define column names
+# Defining column names
 numeric_columns = ['age', 'hours-per-week']
 categorical_columns = ['workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country']
 
-# Define target variable
+# Defining target variable
 target = 'salary'
 
-# Split the data into features and target
+# Splitting the data into features and target
 X = data[numeric_columns + categorical_columns]
 y = data[target]
 
-# Encode the target variable
+# Encoding the target variable
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y)
 
-# Split the data into training and test sets before any preprocessing
+# Splitting the data into training and test sets before any preprocessing
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
-# Define preprocessing pipelines for training data
+# Defining preprocessing pipelines for training data
 numeric_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='mean')),
     ('scaler', StandardScaler())
@@ -52,14 +52,14 @@ categorical_transformer = Pipeline(steps=[
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 
-# Combine preprocessors into a ColumnTransformer
+# Combining preprocessors into a ColumnTransformer
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numeric_transformer, numeric_columns),
         ('cat', categorical_transformer, categorical_columns)
     ])
 
-# Create and train the model pipeline
+# Creating and training the model pipeline
 model = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('classifier', LogisticRegression()) 
@@ -67,8 +67,8 @@ model = Pipeline(steps=[
 
 model.fit(X_train, y_train)
 
-# Make predictions
+# Evaluating the model
 y_pred = model.predict(X_test)
 
-# Print classification report
+# Printing classification report
 print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))

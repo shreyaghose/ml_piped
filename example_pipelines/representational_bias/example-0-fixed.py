@@ -5,12 +5,13 @@ from sklearn.compose import ColumnTransformer
 from sklearn.impute import SimpleImputer
 from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import OneHotEncoder, KBinsDiscretizer, label_binarize, StandardScaler
+from sklearn.preprocessing import OneHotEncoder, label_binarize, StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from imblearn.over_sampling import SMOTE
 from collections import Counter
 
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -33,7 +34,7 @@ raw_data = raw_data[
 # Data Replacement
 raw_data = raw_data.replace('Medium', "Low")
 
-# Check for representational bias in the training data
+# Checking for representational bias in the training data
 def check_representational_bias(data, protected_attribute):
     counter = Counter(data[protected_attribute])
     print(f"Distribution of {protected_attribute} in the data: {counter}")
@@ -43,7 +44,7 @@ train_data, test_data, train_labels, test_labels = train_test_split(raw_data, ra
 print("Shape of training data:", train_data.shape)
 print("Shape of testing data:", test_data.shape)
 
-# Impute missing values and encode categorical variables
+# Imputing missing values and encode categorical variables
 categorical_features = ['sex', 'race', 'c_charge_degree']
 numeric_features = ['age', 'priors_count', 'days_b_screening_arrest', 'decile_score', 'is_recid', 'two_year_recid']
 
@@ -60,23 +61,24 @@ preprocessor = ColumnTransformer(
         ]), categorical_features)
     ])
 
-# Fit and transform the training data
+# Fitting and transform the training data
 train_data_encoded = preprocessor.fit_transform(train_data)
-# Transform the test data
+
+# Transforming the test data
 test_data_encoded = preprocessor.transform(test_data)
 
 # Binarizing labels
 train_labels = label_binarize(train_labels, classes=['High', 'Low'])
 test_labels = label_binarize(test_labels, classes=['High', 'Low'])
 
-# Check for class distribution before SMOTE
+# Checking for class distribution before SMOTE
 print("Class distribution before SMOTE:", Counter(train_labels.flatten()))
 
 # Mitigate bias using SMOTE (Synthetic Minority Over-sampling Technique)
 smote = SMOTE(sampling_strategy='auto', random_state=42)
 train_data_smote, train_labels_smote = smote.fit_resample(train_data_encoded, train_labels.ravel())
 
-# Check the distribution after SMOTE
+# Checking the distribution after SMOTE
 print("Distribution of classes after SMOTE:", Counter(train_labels_smote))
 
 # Model Evaluation
@@ -89,23 +91,23 @@ print("Accuracy", pipeline.score(test_data_encoded, test_labels.ravel()))
 predictions = pipeline.predict(test_data_encoded)
 print(classification_report(test_labels, predictions, zero_division=0))
 
-# Evaluate model fairness across protected attribute groups
+# Evaluating model fairness across protected attribute groups
 def evaluate_fairness(predictions, test_data, protected_attribute):
-    # Create a DataFrame with predictions and the protected attribute
+    # Creating a DataFrame with predictions and the protected attribute
     fairness_df = test_data.copy()
     fairness_df['predictions'] = predictions
     fairness_df['actual'] = test_labels.ravel()  # Add actual labels for comparison
     
-    # Reset the index of fairness_df to avoid alignment issues
+    # Resetting the index of fairness_df to avoid alignment issues
     fairness_df = fairness_df.reset_index(drop=True)
     
     group_stats = fairness_df.groupby(protected_attribute).agg(
-        accuracy=('predictions', lambda x: (x == fairness_df.loc[x.index, 'actual']).mean()),  # Ensure alignment
+        accuracy=('predictions', lambda x: (x == fairness_df.loc[x.index, 'actual']).mean()),  # Ensuring alignment
         count=('predictions', 'count')
     )
     
     print("Model Fairness Metrics:")
     print(group_stats)
 
-# Evaluate fairness based on 'race'
+# Evaluating fairness based on 'race'
 evaluate_fairness(predictions, test_data, 'race')

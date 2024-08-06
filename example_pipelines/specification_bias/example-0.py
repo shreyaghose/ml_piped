@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -27,11 +27,11 @@ data = pd.read_csv(raw_data_file)
 X = data.drop(columns=['salary'])
 y = data['salary']
 
-# Identify categorical columns
+# Identifying categorical columns
 categorical_cols = X.select_dtypes(include=['object']).columns
 numeric_cols = X.select_dtypes(exclude=['object']).columns
 
-# Create transformers for preprocessing
+# Creating transformers for preprocessing
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', SimpleImputer(strategy='median'), numeric_cols),
@@ -41,19 +41,19 @@ preprocessor = ColumnTransformer(
         ]), categorical_cols)
     ])
 
-# Create a pipeline that combines preprocessing and model
+# Creating a pipeline that combines preprocessing and model
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('classifier', RandomForestClassifier(random_state=42))
 ])
 
-# Split the dataset into train and test sets
+# Splitting the dataset into train and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the pipeline
+# Training the pipeline
 pipeline.fit(X_train, y_train)
 
-# Predict and evaluate
+# Prediction and evaluation
 y_pred = pipeline.predict(X_test)
 print(f"Accuracy: {accuracy_score(y_test, y_pred)}")
 print(f"Classification report: {classification_report(y_test, y_pred)}")

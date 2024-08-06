@@ -10,7 +10,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -24,14 +24,14 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "adult_data", "adult_data.csv")
 data = pd.read_csv(raw_data_file)
 
-# Split the raw data into features and target variable
+# Splitting the raw data into features and target variable
 X = data.drop('salary', axis=1)
 y = data['salary']
 
-# Identify categorical columns
+# Identifying categorical columns
 categorical_features = X.select_dtypes(include=['object']).columns.tolist()
 
-# Define the preprocessing pipeline
+# Defining the preprocessing pipeline
 preprocessor = ColumnTransformer(
     transformers=[
         ('cat', Pipeline(steps=[
@@ -45,13 +45,13 @@ preprocessor = ColumnTransformer(
         ]), X.select_dtypes(include=['number']).columns.tolist())
     ])
 
-# Define the model pipeline
+# Defining the model pipeline
 model = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('classifier', LogisticRegression(max_iter=1000))
 ])
 
-# Split the data into training and test sets
+# Splitting the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # Hyperparameter tuning
@@ -68,5 +68,5 @@ best_model = grid_search.best_estimator_
 y_pred = best_model.predict(X_test)
 print(classification_report(y_test, y_pred))
 
-# Print the best hyperparameter
+# Printing the best hyperparameters
 print(f"Best regularization parameter (C): {grid_search.best_params_['classifier__C']}")

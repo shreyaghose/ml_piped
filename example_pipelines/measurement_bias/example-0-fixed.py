@@ -7,7 +7,7 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.impute import SimpleImputer
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -33,20 +33,20 @@ data[numeric_features] = numeric_imputer.fit_transform(data[numeric_features])
 categorical_imputer = SimpleImputer(strategy='most_frequent')
 data[categorical_features] = categorical_imputer.fit_transform(data[categorical_features])
 
-# Normalize data to handle different granularities and scale
+# Normalizing data to handle different granularities and scale
 scaler = StandardScaler()  # or MinMaxScaler() based on data needs
 data[numeric_features] = scaler.fit_transform(data[numeric_features])
 
-# Split the normalized data into training and test sets
+# Splitting the normalized data into training and test sets
 X = data.drop('Target', axis=1)
 y = data['Target']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
+# Training the model
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, y_train)
 
-# Evaluate the model
+# Evaluating the model
 y_pred = model.predict(X_test)
 print(classification_report(y_test, y_pred))
 

@@ -8,7 +8,7 @@ from imblearn.pipeline import Pipeline as ImbPipeline
 from imblearn.under_sampling import RandomUnderSampler
 import pandas as pd
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -22,7 +22,7 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "diabetes_indicator", "5050_split.csv")
 data = pd.read_csv(raw_data_file)
 
-# Define pipeline with under-sampling and feature selection
+# Defining pipeline with under-sampling and feature selection
 pipeline = ImbPipeline([
     ('sampling', RandomUnderSampler(random_state=42)),
     ('feature_selection', SelectKBest(f_classif, k=10)),

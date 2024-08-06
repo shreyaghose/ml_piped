@@ -10,6 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, label_binarize,
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -44,7 +45,7 @@ test_data = test_data.replace('Medium', "Low")
 train_labels = label_binarize(train_data['score_text'], classes=['High', 'Low']).ravel()
 test_labels = label_binarize(test_data['score_text'], classes=['High', 'Low']).ravel()
 
-# Drop the 'score_text' column from features
+# Dropping the 'score_text' column from features
 train_data = train_data.drop(columns=['score_text'])
 test_data = test_data.drop(columns=['score_text'])
 
@@ -63,7 +64,7 @@ featurizer = ColumnTransformer(transformers=[
     ('impute2_and_bin', impute2_and_bin, ['age'])
 ])
 
-# Complete pipeline with preprocessing and classification
+# Completing pipeline with preprocessing and classification
 pipeline = Pipeline(steps=[('featurizer', featurizer),
     ('classifier', LogisticRegression())
 ])

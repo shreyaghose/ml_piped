@@ -10,6 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, StandardScaler, label_binarize,
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -44,7 +45,7 @@ test_data = test_data.replace('Medium', "Low")
 train_labels = label_binarize(train_data['score_text'], classes=['High', 'Low']).ravel()
 test_labels = label_binarize(test_data['score_text'], classes=['High', 'Low']).ravel()
 
-# Drop the 'score_text' column from features
+# Dropping the 'score_text' column from features
 train_data = train_data.drop(columns=['score_text'])
 test_data = test_data.drop(columns=['score_text'])
 
@@ -76,13 +77,3 @@ print("Model score:", pipeline.score(test_data, test_labels))
 
 # Classification Report
 print(classification_report(test_labels, pipeline.predict(test_data), zero_division=0))
-
-# # Performance Evaluation for Slices
-# slices = test_data.groupby(['race', 'sex'])
-
-# for slice_name, slice_df in slices:
-#     slice_indices = slice_df.index
-#     slice_y_true = test_labels[slice_indices]
-#     slice_y_pred = pipeline.predict(slice_df)
-#     print(f"Performance for slice {slice_name}:")
-#     print(classification_report(slice_y_true, slice_y_pred, zero_division=0))

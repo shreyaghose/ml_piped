@@ -10,6 +10,7 @@ from sklearn.preprocessing import OneHotEncoder, KBinsDiscretizer, label_binariz
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)

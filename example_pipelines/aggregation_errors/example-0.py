@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.impute import SimpleImputer
 from sklearn.metrics import classification_report
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -30,10 +30,10 @@ data['occupation'] = data['occupation'].str.replace('-', ' ')  # Example of inco
 # Incorrect spatial aggregation
 data['native-country'] = data['native-country'].apply(lambda x: 'North America')  # Replacing location with a central value
 
-# Split data
+# Splitting data
 X_train, X_test, y_train, y_test = train_test_split(data.drop('salary', axis=1), data['salary'], test_size=0.2)
 
-# Define preprocessing for numeric and categorical features
+# Defining preprocessing for numeric and categorical features
 numeric_features = X_train.select_dtypes(include=['int64', 'float64']).columns
 categorical_features = X_train.select_dtypes(include=['object']).columns
 
@@ -53,19 +53,17 @@ preprocessor = ColumnTransformer(
         ('cat', categorical_transformer, categorical_features)
     ])
 
-# Combine preprocessing with the classifier
+# Combining preprocessing with the classifier
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('classifier', RandomForestClassifier())
 ])
 
-# Fit model
+# Fitting model
 pipeline.fit(X_train, y_train)
 
-# Optionally, you can evaluate the model
+# Evaluating the model
 score = pipeline.score(X_test, y_test)
 print(f"Model accuracy: {score:.2f}")
-
-# Evaluate the model
 y_pred = pipeline.predict(X_test)
 print(classification_report(y_test, y_pred, zero_division=0))

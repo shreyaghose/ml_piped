@@ -8,7 +8,7 @@ from imblearn.over_sampling import SMOTE
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -31,8 +31,6 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 selector = SelectKBest(f_classif, k=10)
 X_train_selected = selector.fit_transform(X_train, y_train)
 X_test_selected = selector.transform(X_test)
-
-# Sampling applied after feature selection
 smote = SMOTE(random_state=42)
 X_train_resampled, y_train_resampled = smote.fit_resample(X_train_selected, y_train)
 
@@ -41,10 +39,10 @@ scaler = StandardScaler()
 X_train_final = scaler.fit_transform(X_train_resampled)
 X_test_final = scaler.transform(X_test_selected)
 
-# Train the model
+# Training the model
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train_final, y_train_resampled)
 
-# Evaluate the model
+# Evaluating the model
 y_pred = model.predict(X_test_final)
 print(classification_report(y_test, y_pred))

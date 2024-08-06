@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 import numpy as np
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -27,11 +27,11 @@ data = pd.read_csv(raw_data_file)
 X = data.drop('salary', axis=1)
 y = data['salary']
 
-# Define categorical and numerical features
+# Defining categorical and numerical features
 categorical_features = X.select_dtypes(include=['object']).columns.tolist()
 numerical_features = X.select_dtypes(include=['number']).columns.tolist()
 
-# Create a column transformer for preprocessing
+# Creating a column transformer for preprocessing
 preprocessor = ColumnTransformer(
     transformers=[
         ('cat', OneHotEncoder(), categorical_features),
@@ -40,28 +40,28 @@ preprocessor = ColumnTransformer(
     remainder='drop'  # Drop any other columns not specified
 )
 
-# Create a pipeline that first transforms data and then fits the model
+# Creating a pipeline that first transforms data and then fits the model
 pipeline = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('model', RandomForestClassifier())  # Using Random Forest for sensitivity
 ])
 
-# Split the data
+# Splitting the data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train the model
+# Training the model
 pipeline.fit(X_train, y_train)
 
-# Evaluate the model
+# Evaluating the model
 y_pred = pipeline.predict(X_test)
 accuracy_before_noise = accuracy_score(y_test, y_pred)
 
-# Introduce more significant Gaussian noise to the test set (numerical features only)
+# Introducing more significant Gaussian noise to the test set (numerical features only)
 X_test_noisy = X_test.copy()
 numerical_indices = X_test_noisy.select_dtypes(include=['float64', 'int64']).columns
 X_test_noisy[numerical_indices] += np.random.normal(0, 15, X_test_noisy[numerical_indices].shape)  
 
-# Evaluate the model on noisy data
+# Evaluating the model on noisy data
 y_pred_noisy = pipeline.predict(X_test_noisy)
 accuracy_after_noise = accuracy_score(y_test, y_pred_noisy)
 

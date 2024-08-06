@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 import pandas as pd
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -24,7 +24,7 @@ project_root = get_project_root()
 raw_data_file = os.path.join(project_root, "datasets", "adult_data", "adult_data.csv")
 data = pd.read_csv(raw_data_file)
 
-# Define preprocessing for text and numerical features
+# Defining preprocessing for text and numerical features
 def text_preprocessing(text_series):
     text_series = text_series.str.lower()
     text_series = text_series.str.replace('-', ' ')
@@ -34,18 +34,18 @@ def spatial_aggregation(location_series):
     location_series = location_series.apply(lambda x: 'North America' if x in ['United-States', 'Canada', 'Mexico'] else x)
     return location_series  
 
-# Apply preprocessing
+# Applying preprocessing
 data['occupation'] = text_preprocessing(data['occupation'])
 data['native-country'] = spatial_aggregation(data['native-country'])
 
-# Split data
+# Splitting data
 X_train, X_test, y_train, y_test = train_test_split(data.drop('salary', axis=1), data['salary'], test_size=0.2, random_state=42)
 
-# Identify numeric and categorical columns
+# Identifying numeric and categorical columns
 numeric_features = X_train.select_dtypes(include=['int64', 'float64']).columns
 categorical_features = X_train.select_dtypes(include=['object']).columns
 
-# Define preprocessing pipelines for both numeric and categorical data
+# Defining preprocessing pipelines for both numeric and categorical data
 numeric_transformer = Pipeline(steps=[
     ('imputer', SimpleImputer(strategy='median')),
     ('scaler', StandardScaler())
@@ -56,26 +56,24 @@ categorical_transformer = Pipeline(steps=[
     ('onehot', OneHotEncoder(handle_unknown='ignore'))
 ])
 
-# Combine preprocessing steps
+# Combining preprocessing steps
 preprocessor = ColumnTransformer(
     transformers=[
         ('num', numeric_transformer, numeric_features),
         ('cat', categorical_transformer, categorical_features)
     ])
 
-# Create a pipeline that includes preprocessing, SMOTE, and the classifier
+# Creating a pipeline that includes preprocessing, SMOTE, and the classifier
 pipeline = Pipeline([
     ('preprocessor', preprocessor),
     ('smote', SMOTE(random_state=42)),
     ('classifier', RandomForestClassifier())
 ])
 
-# Fit model
+# Fitting model
 pipeline.fit(X_train, y_train)
 
-# Evaluate model
+# Evaluating model
 print(f"Model accuracy:", pipeline.score(X_test, y_test))
-
-# Evaluate the model
 y_pred = pipeline.predict(X_test)
 print(classification_report(y_test, y_pred, zero_division=0))

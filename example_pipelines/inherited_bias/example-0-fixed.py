@@ -8,10 +8,10 @@ from sklearn.metrics import classification_report
 from sklearn.preprocessing import OneHotEncoder, LabelEncoder
 from fairlearn.reductions import ExponentiatedGradient, DemographicParity
 
-# Suppress FutureWarnings
+# Suppressing FutureWarnings. This is done for the clarity of output, but is not recommended.
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-# Setup paths
+# Setting up paths
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -29,17 +29,17 @@ data = pd.read_csv(raw_data_file)
 X = data.drop('salary', axis=1)
 y = data['salary']
 
-# Convert target variable to numeric
+# Converting target variable to numeric
 label_encoder = LabelEncoder()
 y_encoded = label_encoder.fit_transform(y)
 
-# Convert categorical 'race' feature to numeric
+# Converting categorical 'race' feature to numeric
 race_encoder = LabelEncoder()
 X['race'] = race_encoder.fit_transform(X['race'])
 
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
-# Handle categorical data using one-hot encoding if necessary
+# Handling categorical data using one-hot encoding if necessary
 encoder = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
 X_train_encoded = encoder.fit_transform(X_train.select_dtypes(include=['object']))
 X_test_encoded = encoder.transform(X_test.select_dtypes(include=['object']))
@@ -47,15 +47,15 @@ X_test_encoded = encoder.transform(X_test.select_dtypes(include=['object']))
 X_train_encoded_df = pd.DataFrame(X_train_encoded, columns=encoder.get_feature_names_out(X_train.select_dtypes(include=['object']).columns))
 X_test_encoded_df = pd.DataFrame(X_test_encoded, columns=encoder.get_feature_names_out(X_test.select_dtypes(include=['object']).columns))
 
-# Combine encoded and non-encoded features
+# Combinin encoded and non-encoded features
 X_train_final = pd.concat([X_train.select_dtypes(exclude=['object']).reset_index(drop=True), X_train_encoded_df.reset_index(drop=True)], axis=1)
 X_test_final = pd.concat([X_test.select_dtypes(exclude=['object']).reset_index(drop=True), X_test_encoded_df.reset_index(drop=True)], axis=1)
 
-# Ensure all column names are strings
+# Ensuring all column names are strings
 X_train_final.columns = X_train_final.columns.astype(str)
 X_test_final.columns = X_test_final.columns.astype(str)
 
-# Define the bias mitigator
+# Defining the bias mitigator
 model = LogisticRegression(max_iter=10000)
 mitigator = ExponentiatedGradient(
     estimator=model,
