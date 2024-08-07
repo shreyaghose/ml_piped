@@ -59,20 +59,20 @@ Ensure Python is installed on the system. All dependencies can be loaded via the
 
 
 ## Installation
-To install the required packages, the following command can be used:
+To install the required packages, the following command can be used: <br>
 `pip install -r requirements.txt`
 
 ## Running the Pipelines
 To run the pipelines for each issue, navigate to the [example_pipelines](example_pipelines). Within this directory, navigate to the sub-directory for the required issue and execute the Python scripts.
 
 **Example: Running Pipelines for Shortcut Learning**
-1. Navigate to the issue directory:
+1. Navigate to the issue directory: <br>
 `cd example_pipelines/shortcut_learning` 
 
-2. Run the flawed pipeline:
+2. Run the flawed pipeline: <br>
 `python example-0.py`
 
-3. Run the corrected pipeline:
+3. Run the corrected pipeline: <br>
 `python example-0-fixed.py`
 
 ## License
