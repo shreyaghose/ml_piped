@@ -4,15 +4,18 @@
 
 Welcome to ML PIPED, a collection of example pipelines demonstrating various data preparation issues and their solutions. This repository is designed to help data practitioners identify common pitfalls in data processing and learn how to address them effectively.
 
+
 ## Overview
 Data preparation is a critical step in any data-driven project. Mistakes in this phase can lead to misleading results, faulty analyses, and ultimately, incorrect decisions. This repository provides practical examples of 21 common data preparation issues, along with flawed and corrected pipeline implementations for each issue.
+
 
 ## Structure
 Each issue is organized in a dedicated folder containing:
 
 1. **Flawed Pipeline**: A demonstration of how the issue can manifest in a data pipeline.
 2. **Corrected Pipeline**: A solution or best practice that mitigates the identified issue.
-3. **Documentation**: A .md file explaining the issue, potential consequences, and practical advice on avoiding or fixing it.
+3. **Explanation**: A .md file explaining the issue, potential consequences, and practical advice on avoiding or fixing it.
+
 
 ## Datasets
 The pipelines in this repository utilize a variety of datasets to illustrate different data preparation issues. Below is an overview of the datasets used:
@@ -50,6 +53,27 @@ The repository includes examples of the issues that can be found during the data
 2. Reviewing the Examples: Examining the flawed and corrected pipelines provides insights on how these issues can occur and be resolved.
 3. Reading the Documentation: Each issue includes a markdown file with detailed explanations and advice.
 4. Repeating Experimentation: The experimentation can be tailored and fit to any dataset and repeated.
+
+## Pre-requisites
+Ensure Python is installed on the system. All dependencies can be loaded via the [requirements.txt](requirements.txt) file either globally or in a virtual environment. 
+
+
+## Installation
+To install the required packages, the following command can be used:
+`pip install -r requirements.txt`
+
+## Running the Pipelines
+To run the pipelines for each issue, navigate to the [example_pipelines](example_pipelines). Within this directory, navigate to the sub-directory for the required issue and execute the Python scripts.
+
+**Example: Running Pipelines for Shortcut Learning**
+1. Navigate to the issue directory:
+`cd example_pipelines/shortcut_learning` 
+
+2. Run the flawed pipeline:
+`python example-0.py`
+
+3. Run the corrected pipeline:
+`python example-0-fixed.py`
 
 ## License
 This project is licensed under the Apache License 2.0. Refer to the [LICENSE](LICENSE.txt) file for details.
